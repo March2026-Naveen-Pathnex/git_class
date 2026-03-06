@@ -1,1 +1,1 @@
-# git_class2
+This is new changes 
