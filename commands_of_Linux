@@ -1,0 +1,15 @@
+ls -al
+rm -rf
+cd ~
+cd
+chmod 777 file or directories name 
+chown user:group files or directories name
+top 
+lscpu
+free -h
+df -h
+du 
+cat /etc/system-release
+lsblk
+cat file_name
+vi file_name
