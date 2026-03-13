@@ -1,0 +1,328 @@
+What is Kubernetes (Simple Personal Explanation)
+
+When we build applications using containers (like Docker), we may run many containers on many servers.
+
+For example:
+
+We deploy our application in containers
+
+We run those containers on multiple machines
+
+Sometimes we may have 10, 50, or even 100 containers
+
+Managing them manually becomes very difficult for us.
+
+So we use Kubernetes.
+
+Kubernetes helps us automatically manage our containers across many servers.
+
+What Kubernetes Helps Us Do
+
+When we use Kubernetes, it helps us with many tasks.
+
+1️⃣ Deploying Containers
+
+When we want to run our application, we put it inside a container.
+
+Example:
+
+I build a Docker container for my application
+
+Then I deploy it using Kubernetes
+
+Kubernetes makes sure the container runs properly on a server.
+
+2️⃣ Scaling Applications
+
+Sometimes our application gets more users.
+
+Example:
+
+Initially we run 2 containers
+
+Suddenly traffic increases
+
+So we tell Kubernetes:
+
+"Please run 10 containers instead of 2."
+
+Kubernetes will automatically create more containers for us.
+
+When traffic decreases, we can reduce them again.
+
+3️⃣ Load Balancing
+
+If many users access our application, we don’t want one container to handle everything.
+
+So Kubernetes distributes the traffic for us.
+
+Example:
+
+We have 3 containers:
+
+User Requests
+     ↓
+Kubernetes Service
+ ↓     ↓     ↓
+Pod1  Pod2  Pod3
+
+Kubernetes shares traffic between all pods.
+
+4️⃣ Managing Networking and Storage
+
+When our containers need to talk to each other, Kubernetes manages the networking for us.
+
+Example:
+
+One container runs frontend
+
+Another container runs backend
+
+Kubernetes allows these containers to communicate easily.
+
+It also helps us attach storage to containers when needed.
+
+5️⃣ Maintaining Desired State
+
+In Kubernetes, we tell the system what we want.
+
+Example:
+
+I say:
+
+"I want 3 containers running."
+
+If one container crashes, Kubernetes automatically creates a new one for us.
+
+So we don't need to monitor everything manually.
+
+Kubernetes Cluster
+
+When we install Kubernetes, we create something called a cluster.
+
+A cluster contains:
+
+Control Plane (Master)
+Worker Nodes
+
+Think of it like:
+
+Manager → Workers
+Control Plane (Master Node)
+
+The control plane is like the brain of Kubernetes.
+
+It helps us manage the entire cluster.
+
+It decides:
+
+where our containers should run
+
+how many containers should run
+
+which server should run them
+
+So whenever we give instructions, the control plane manages everything.
+
+API Server
+
+When we interact with Kubernetes, our request goes to the API Server.
+
+Example:
+
+When I run this command:
+
+kubectl get pods
+
+My request goes to the API Server first.
+
+The API server then talks to other Kubernetes components.
+
+So we can say:
+
+The API Server is the main entry point of the cluster.
+
+etcd
+
+etcd is the database of Kubernetes.
+
+It stores all cluster information for us.
+
+Example:
+
+It stores:
+
+which pods are running
+
+which nodes exist
+
+deployment information
+
+services
+
+If we want to know the current state of the cluster, Kubernetes checks etcd.
+
+Controller Manager
+
+The Controller Manager helps us maintain the desired state.
+
+Example:
+
+I say:
+
+"I want 3 pods running."
+
+But currently only 2 pods are running.
+
+The controller manager will create one more pod automatically for us.
+
+So it constantly checks:
+
+Desired State vs Actual State
+
+And fixes problems.
+
+Scheduler
+
+The Scheduler decides where our pods should run.
+
+Example:
+
+We have three worker nodes:
+
+Node1
+Node2
+Node3
+
+When we create a pod, Kubernetes decides which node should run it.
+
+The scheduler checks:
+
+CPU
+
+Memory
+
+available resources
+
+Then it selects the best node for us.
+
+Worker Nodes
+
+Worker nodes are the machines where our applications actually run.
+
+The control plane manages things, but worker nodes do the real work.
+
+Worker nodes run:
+
+containers
+
+pods
+
+applications
+
+Kubelet
+
+The kubelet is an agent running on each worker node.
+
+Its job is to make sure our containers are running properly.
+
+Example:
+
+If a container crashes, the kubelet will restart it for us.
+
+It constantly talks to the API Server.
+
+Kube Proxy
+
+Kube Proxy manages network communication between pods.
+
+Example:
+
+If one pod wants to talk to another pod, kube-proxy helps route the traffic.
+
+So it helps us connect different parts of our application.
+
+Container Runtime
+
+The container runtime is the software that actually runs containers.
+
+Examples include:
+
+containerd
+
+CRI-O
+
+The runtime helps us:
+
+download container images
+
+start containers
+
+stop containers
+
+Pods
+
+Pods are the smallest unit in Kubernetes.
+
+When we deploy applications in Kubernetes, we don't create containers directly.
+
+Instead, we create pods.
+
+A pod contains one or more containers.
+
+Example:
+
+Pod
+ └ Container (nginx)
+
+Pods also share:
+
+network
+
+storage
+
+Namespaces
+
+Namespaces help us organize our cluster.
+
+Example:
+
+If many teams use the same cluster, we can separate resources like this:
+
+dev namespace
+test namespace
+production namespace
+
+So each team works in its own environment.
+
+Services
+
+Pods are temporary.
+
+If a pod crashes, it gets a new IP address.
+
+This creates problems for us.
+
+So Kubernetes provides Services.
+
+A Service gives:
+
+a stable IP
+
+a DNS name
+
+load balancing
+
+Example:
+
+Service
+ ↓
+Pod1
+Pod2
+Pod3
+
+The service automatically sends traffic to available pods.
+
+In One Simple Sentence
+
+When we run many containers on many servers, Kubernetes helps us manage, scale, and keep them running automatically.
